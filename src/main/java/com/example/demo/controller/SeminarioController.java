@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class SeminarioController {
 	private SeminarioServiceImpl seminario;
 	
 	//Funciona
+		@CrossOrigin(origins = "http://localhost:4200")
 		@GetMapping("/all")
 		public ResponseEntity<List<Seminario>> listarSeminario(){
 			try {
@@ -42,6 +44,7 @@ public class SeminarioController {
 		}
 		
 		//Funciona
+	@CrossOrigin(origins = "http://localhost:4200")
 		@GetMapping("/search/{id}")
 		public ResponseEntity<Seminario> buscarSeminario(@PathVariable("id") int id){
 			Seminario s = seminario.buscarSeminario(id);
@@ -53,12 +56,13 @@ public class SeminarioController {
 		}
 		
 		//Funciona
+	@CrossOrigin(origins = "http://localhost:4200")
 		@PostMapping("/new")
-		public ResponseEntity<String> agregarSeminario(@RequestBody Seminario rec){
+		public ResponseEntity<Seminario> agregarSeminario(@RequestBody Seminario rec){
 			try {
 				Seminario r = new Seminario(rec.getFecha_inicio(), rec.getFecha_fin(), rec.getUrl(), rec.getNombre());
-				String mensaje= seminario.insertarSeminario(r);
-				return new ResponseEntity<>(mensaje,HttpStatus.CREATED);
+				Seminario e= seminario.insertarSeminario(r);
+				return new ResponseEntity<>(e,HttpStatus.CREATED);
 			} catch (Exception e) {
 				// TODO: handle exception
 				return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,11 +71,12 @@ public class SeminarioController {
 		
 		
 		//Funciona
+	@CrossOrigin(origins = "http://localhost:4200")
 		@DeleteMapping("/delete/{id}")
-		public ResponseEntity<String> eliminarSeminario(@PathVariable("id") int id){
+		public ResponseEntity<HttpStatus> eliminarSeminario(@PathVariable("id") int id){
 		try {
-			String mensaje = seminario.eliminarSeminario(id);
-			return new ResponseEntity<>(mensaje,HttpStatus.NO_CONTENT);
+			seminario.eliminarSeminario(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,8 +84,9 @@ public class SeminarioController {
 		}
 		
 		//Funciona
+	@CrossOrigin(origins = "http://localhost:4200")
 		@PutMapping("/update/{id}")
-		public ResponseEntity<String> ActualizarSeminario(@RequestBody Seminario rec, @PathVariable("id") int id){
+		public ResponseEntity<Seminario> ActualizarSeminario(@RequestBody Seminario rec, @PathVariable("id") int id){
 		try {
 			Seminario ul = seminario.buscarSeminario(id);
 			if (ul.getId_seminario()>0) {

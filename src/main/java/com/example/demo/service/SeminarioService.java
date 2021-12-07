@@ -5,9 +5,9 @@ import com.example.demo.entity.Seminario;
 
 
 public interface SeminarioService {
-	String insertarSeminario (Seminario s);
+	Seminario insertarSeminario (Seminario s);
 	List<Seminario> listarSeminario();
 	Seminario buscarSeminario(int id_seminario);
-	String eliminarSeminario(int id_seminario);
-	String actualizarSeminario(Seminario s);
+	void eliminarSeminario(int id_seminario);
+	Seminario actualizarSeminario(Seminario s);
 }

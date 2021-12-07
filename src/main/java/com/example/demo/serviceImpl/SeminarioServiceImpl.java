@@ -16,33 +16,38 @@ public class SeminarioServiceImpl implements SeminarioService{
 	private SeminarioRepository sr;
 	
 	@Override
-	public String insertarSeminario(Seminario s) {
+	public Seminario insertarSeminario(Seminario s) {
 		// TODO Auto-generated method stub
-		return sr.insertarSeminario(s.getNombre(),s.getFecha_inicio(), s.getFecha_fin(), s.getUrl());
+		//return sr.insertarSeminario(s.getNombre(),s.getFecha_inicio(), s.getFecha_fin(), s.getUrl());
+		
+		return sr.save(s);
 	}
 
 	@Override
 	public List<Seminario> listarSeminario() {
 		// TODO Auto-generated method stub
-		return sr.listarSeminario();
+		return sr.findAll();
 	}
 
 	@Override
 	public Seminario buscarSeminario(int id_seminario) {
 		// TODO Auto-generated method stub
-		return sr.buscarSeminario(id_seminario);
+		//return sr.buscarSeminario(id_seminario);
+		return sr.findById(id_seminario).get();
 	}
 
 	@Override
-	public String eliminarSeminario(int id_seminario) {
+	public void eliminarSeminario(int id_seminario) {
 		// TODO Auto-generated method stub
-		return sr.eliminarSeminario(id_seminario);
+		//return sr.eliminarSeminario(id_seminario);
+		 sr.deleteById(id_seminario);
 	}
 
 	@Override
-	public String actualizarSeminario(Seminario s) {
+	public Seminario actualizarSeminario(Seminario s) {
 		// TODO Auto-generated method stub
-		return sr.actualizarSeminario(s.getId_seminario(), s.getNombre(),s.getFecha_inicio(), s.getFecha_fin(), s.getUrl());
+		//return sr.actualizarSeminario(s.getId_seminario(), s.getNombre(),s.getFecha_inicio(), s.getFecha_fin(), s.getUrl());
+		return sr.save(s);
 	}
 
 }
